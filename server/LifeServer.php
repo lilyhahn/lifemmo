@@ -78,7 +78,7 @@ class LifeServer{
 		$changes = array();
 		$data = iterator_to_array($this->collection->find());
 		//step one: find changes we need to make and put details in an array
-		for($i = 0; $i < $this->sizex; $i++){ //
+		for($i = 0; $i < $this->sizex; $i++){
 			for($j = 0; $j < $this->sizey; $j++){
 				$nsum = $this->neighborhood_sum($data, $i, $j);
 				$thisdata = searchSubArray($data, "x", $i, "y", $j);
