@@ -62,7 +62,7 @@ class LifeServer{
 			if($tmp["state"] == 1)
 				$nsum++;
 		}
-		if($x < $this->sizex && y > 0){
+		if($x < $this->sizex && $y > 0){
 			$tmp = searchSubArray($data, "x", $x + 1, "y", $y - 1);
 			if($tmp["state"] == 1)
 				$nsum++;
