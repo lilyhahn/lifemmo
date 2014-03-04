@@ -81,6 +81,10 @@ class LifeServer{
 		for($i = 0; $i < $this->sizex; $i++){
 			for($j = 0; $j < $this->sizey; $j++){
 				$nsum = $this->neighborhood_sum($data, $i, $j);
+				if($nsum == 3){
+					echo "nsum: $nsum\n";
+					echo "thisdata: $thisdata\n";
+				}
 				$thisdata = searchSubArray($data, "x", $i, "y", $j);
 				$thisdata = $thisdata["state"];
 				if($nsum < 2 && $thisdata == 1){
@@ -88,7 +92,7 @@ class LifeServer{
 					"y" => $j,
 					"state" => 0);
 				}
-				else if($nsum == 2 || $nsum == 3 && $thisdata == 1){
+				else if(($nsum == 2 || $nsum == 3) && $thisdata == 1){
 					continue;
 				}
 				else if($nsum > 3 && $thisdata == 1){
@@ -96,7 +100,7 @@ class LifeServer{
 					"y" => $j,
 					"state" => 0);
 				}
-				else if($nsum == 3 && $thisdata == 1){
+				else if($nsum == 3 && $thisdata == 0){
 					$changes[] = array("x" => $i,
 					"y" => $j,
 					"state" => 1);
