@@ -1,15 +1,17 @@
-$.ajax({
-	type: 'GET',
- 	url: 'http://192.168.1.201:28017/lifemmo/cells/',
- 	dataType: 'jsonp',
- 	success: function(data){
- 		updateCells(data);
- 	},
-	error: function(){
-		console.log("error");
-	},
-	jsonp: 'jsonp'
-});
+function update(){
+	$.ajax({
+		type: 'GET',
+	 	url: 'http://192.168.1.201:28017/lifemmo/cells/',
+	 	dataType: 'jsonp',
+	 	success: function(data){
+	 		updateCells(data);
+	 	},
+		error: function(){
+			console.log("error");
+		},
+		jsonp: 'jsonp'
+	});
+}
 
 function updateCells(data){
 	var c = document.getElementById("maincanvas");
@@ -21,3 +23,5 @@ function updateCells(data){
 		}
 	});
 }
+
+setInterval(update, 500);
