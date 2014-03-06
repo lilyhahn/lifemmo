@@ -1,2 +1,3 @@
 *.sublime*
 client/jquery.js
+client/fabric.js

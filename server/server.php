@@ -9,6 +9,12 @@ $serv = new LifeServer(30, 30);
 while(1){
 	$line = readline("> ");
     readline_add_history($line);
+    if($line == "start"){
+    	while(1){
+    		$serv->generate();
+    		sleep(5);
+    	}
+    }
     eval('$serv->' . $line . ";");
 }
 ?>
