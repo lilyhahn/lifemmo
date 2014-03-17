@@ -8,7 +8,7 @@ class LifeServer{
 	public function __construct($sx, $sy){
 		$this->sizex = $sx;
 		$this->sizey = $sy;
-		$this->connection = new MongoClient();
+		$this->connection = new MongoClient(getenv("MONGOHQ_URL"));
 		$this->collection = $this->connection->selectCollection('lifemmo', 'cells');
 	}
 	public function init(){
@@ -81,10 +81,10 @@ class LifeServer{
 		for($i = 0; $i < $this->sizex; $i++){
 			for($j = 0; $j < $this->sizey; $j++){
 				$nsum = $this->neighborhood_sum($data, $i, $j);
-				if($nsum == 3){
+				/*if($nsum == 3){
 					echo "nsum: $nsum\n";
 					echo "thisdata: $thisdata\n";
-				}
+				}*/
 				$thisdata = searchSubArray($data, "x", $i, "y", $j);
 				$thisdata = $thisdata["state"];
 				if($nsum < 2 && $thisdata == 1){
@@ -107,7 +107,6 @@ class LifeServer{
 				}
 			}
 		}
-		var_dump($changes);
 		//step two: apply changes
 		foreach($changes as $change){
 			$this->draw($change["x"], $change["y"], $change["state"]);
