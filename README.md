@@ -1,4 +1,4 @@
-Octogenarian -- The Conway's Game of Life MMO
+Octogenarian -- The Game of Life MMO
 =======
 ## Setting up the server
 ### Dependencies
