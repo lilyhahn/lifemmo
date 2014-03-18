@@ -1,6 +1,7 @@
 <?php
 require('LifeServer.php');
-$serv = new LifeServer(30, 30);
+$rule = new Rule(array(2, 3), array(3));
+$serv = new LifeServer(30, 30, $rule);
 #$serv->init();
 #$serv->draw(5, 20, 1);
 #$serv->draw(5, 19, 1);
