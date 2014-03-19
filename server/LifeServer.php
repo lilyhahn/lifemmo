@@ -9,11 +9,12 @@ function checkCondition($items, $condition){
 	return false;
 }
 class LifeServer{
-	private $sizex;
-	private $connection;
-	private $db;
-	private $collection;
-	private $rule;
+	protected $sizex;
+	protected $sizey;
+	protected $connection;
+	protected $db;
+	protected $collection;
+	protected $rule;
 	public function __construct($sx, $sy, $r){
 		$this->sizex = $sx;
 		$this->sizey = $sy;

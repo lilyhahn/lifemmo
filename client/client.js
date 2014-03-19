@@ -1,11 +1,12 @@
 var canvas = null;
-var scale = 30;
+var scale = 20;
 var cells = null;
 var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
 	update();
 	var data = null;
 	canvas = new fabric.Canvas('maincanvas');
+	canvas.selection = false;
 	//console.log("test");
 	canvas.on('mouse:down', function(e){
 		console.log(e);
@@ -86,6 +87,60 @@ function updateCells(data){
 			cell.set('selectable', false);
 			canvas.add(cell);
 		}
+	});
+}
+
+function resume(){
+	var selector = {"command": "resume"};
+	$.ajax({
+		type: 'GET',
+	 	url: drowsyUrl + '/lifemmo/events/',
+	 	data: selector,
+	 	success: function(data){
+	 		//console.log(data.length);
+	 		if(data.length == 0){
+		 		var ins = {"command": "resume"};
+		 		$.ajax({
+		 			type: 'POST',
+		 			url: drowsyUrl + '/lifemmo/events',
+		 			data: ins,
+		 			success: function(data){
+		 				document.getElementById("pause").value = "Pause";
+		 				document.getElementById("pause").onclick = pause;
+		 			}
+		 		});
+	 		}
+	 	},
+		error: function(){
+			console.log("error");
+		},
+	});
+}
+
+function pause(){
+	var selector = {"command": "pause"};
+	$.ajax({
+		type: 'GET',
+	 	url: drowsyUrl + '/lifemmo/events/',
+	 	data: selector,
+	 	success: function(data){
+	 		//console.log(data.length);
+	 		if(data.length == 0){
+		 		var ins = {"command": "pause"};
+		 		$.ajax({
+		 			type: 'POST',
+		 			url: drowsyUrl + '/lifemmo/events',
+		 			data: ins,
+		 			success: function(data){
+		 				document.getElementById("pause").value = "Resume";
+		 				document.getElementById("pause").onclick = resume;
+		 			}
+		 		});
+	 		}
+	 	},
+		error: function(){
+			console.log("error");
+		},
 	});
 }
 
