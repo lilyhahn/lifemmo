@@ -5,8 +5,8 @@ function checkCondition($items, $condition){
 	foreach($items as $item){
 		if($item == $condition)
 			return true;
-		return false;
 	}
+	return false;
 }
 class LifeServer{
 	private $sizex;
@@ -116,6 +116,15 @@ class LifeServer{
 		foreach($changes as $change){
 			$this->draw($change["x"], $change["y"], $change["state"]);
 		}
+	}
+	public function setRule($r){
+		if(gettype($r) == "object" && get_class($r) == "Rule")
+			$this->rule = $r;
+		else
+			throw new Exception('Not a object of type Rule.');
+	}
+	public function getRule(){
+		return $this->rule;
 	}
 }
 ?>

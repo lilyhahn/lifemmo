@@ -1,7 +1,7 @@
 var canvas = null;
 var scale = 30;
 var cells = null;
-var drowsyUrl = "http://10.85.207.212:9292";
+var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
 	update();
 	var data = null;
