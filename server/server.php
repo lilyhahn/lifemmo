@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 require('LifeConsole.php');
 $rule = new Rule(array(2, 3), array(3));

@@ -106,7 +106,7 @@ function resume(){
 		 			url: drowsyUrl + '/lifemmo/events',
 		 			data: ins,
 		 			success: function(data){
-		 				//document.getElementById("pause").value = "Pause";
+		 				update();
 		 				document.getElementById("pause").onclick = pause;
 		 			}
 		 		});
@@ -133,7 +133,7 @@ function pause(){
 		 			url: drowsyUrl + '/lifemmo/events',
 		 			data: ins,
 		 			success: function(data){
-		 				//document.getElementById("pause").value = "Resume";
+		 				update();
 		 				document.getElementById("pause").onclick = resume;
 		 			}
 		 		});
