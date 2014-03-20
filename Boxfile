@@ -1,6 +1,5 @@
-worker1:
-	type: php
-	exec: "php server/serverd.php"
-	php_extensions:
-	- mongo
-
+worker1: 
+  exec: "php server/serverd.php"
+  php_extensions: 
+    - mongo
+  type: php
