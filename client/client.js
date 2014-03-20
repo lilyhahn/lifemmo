@@ -65,6 +65,7 @@ function update(){
 	 		//console.log(data);
 	 		cells = data;
 	 		updateCells(data);
+	 		updateButtons();
 	 	},
 		error: function(){
 			console.log("error");
@@ -105,7 +106,7 @@ function resume(){
 		 			url: drowsyUrl + '/lifemmo/events',
 		 			data: ins,
 		 			success: function(data){
-		 				document.getElementById("pause").value = "Pause";
+		 				//document.getElementById("pause").value = "Pause";
 		 				document.getElementById("pause").onclick = pause;
 		 			}
 		 		});
@@ -132,7 +133,7 @@ function pause(){
 		 			url: drowsyUrl + '/lifemmo/events',
 		 			data: ins,
 		 			success: function(data){
-		 				document.getElementById("pause").value = "Resume";
+		 				//document.getElementById("pause").value = "Resume";
 		 				document.getElementById("pause").onclick = resume;
 		 			}
 		 		});
@@ -141,6 +142,23 @@ function pause(){
 		error: function(){
 			console.log("error");
 		},
+	});
+}
+
+function updateButtons(){
+	$.ajax({
+		type: 'GET',
+		url: drowsyUrl + '/lifemmo/state',
+		success: function(data){
+			$.each(data, function(i, item){
+				if(item.paused == true){
+					$("#pause").val("Resume")
+				}
+				if(item.paused == false){
+					$("#pause").val("Pause");
+				}
+			});
+		}
 	});
 }
 
