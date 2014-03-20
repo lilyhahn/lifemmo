@@ -1,0 +1,3 @@
+worker1:
+    type: php
+    exec: "php server/serverd.php"

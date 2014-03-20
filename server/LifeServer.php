@@ -18,7 +18,7 @@ class LifeServer{
 	public function __construct($sx, $sy, $r){
 		$this->sizex = $sx;
 		$this->sizey = $sy;
-		$this->connection = new MongoClient(getenv("MONGOHQ_URL"));
+		$this->connection = new MongoClient(getenv("MONGODB_URI"));
 		$this->collection = $this->connection->selectCollection('lifemmo', 'cells');
 		$this->rule = $r;
 	}
