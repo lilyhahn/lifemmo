@@ -3,3 +3,4 @@ worker1:
   php_extensions: 
     - mongo
   type: php
+  php-version: 5.4.14
