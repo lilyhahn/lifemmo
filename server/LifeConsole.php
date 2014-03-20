@@ -29,7 +29,8 @@ class LifeConsole extends LifeServer{
 draw(x, y, state): draws a cell\n
 generate(): steps one generation\n
 start(): starts generation\n
-quit(): quits\n";
+quit(): quits\n
+setRule(r): sets rule\n";
 	}
 	public function __construct($sx, $sy, $r){
 		parent::__construct($sx, $sy, $r);
