@@ -1,22 +1,31 @@
 Octogenarian -- The Game of Life MMO
 =======
-## Setting up the server
+## The server
 ### Dependencies
 * MongoDB
 * DrowsyDromedary (https://github.com/zuk/DrowsyDromedary)
 * PHP  
 
 ### First time setup  
-`php -f server.php`  
+`./server.php`  
 `init()`   
-`cd` to where Drowsy is installed  
-`rackup`  
 
 ### Running the server
-`php -f server.php`  
-`start`  
+`cd` to where Drowsy is installed  
+`rackup`  
+`./server.php`  
+`start()`  
 
-## Setting up the client
+### Available commands
+`help()`  
+`draw(x, y, state)` draws a cell, arguments are ints. State should be 0 or 1  
+`generate()` goes forward one generation  
+`start()` starts continuously generating. The server will poll events from clients during this time.  
+`quit()`  
+`setRule(Rule r)` sets the rule. You can make a rule object like this:  
+`new Rule(array(2,3), array(3))`  Rule constructor is `__construct(array $s, array $b)`
+
+## The client
 
 ### Configuration
 

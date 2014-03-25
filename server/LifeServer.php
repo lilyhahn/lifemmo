@@ -1,15 +1,26 @@
 <?php
 require('arraysearch.php');
+require('Rule.php');
+function checkCondition($items, $condition){
+	foreach($items as $item){
+		if($item == $condition)
+			return true;
+	}
+	return false;
+}
 class LifeServer{
-	private $sizex;
-	private $connection;
-	private $db;
-	private $collection;
-	public function __construct($sx, $sy){
+	protected $sizex;
+	protected $sizey;
+	protected $connection;
+	protected $db;
+	protected $collection;
+	protected $rule;
+	public function __construct($sx, $sy, $r){
 		$this->sizex = $sx;
 		$this->sizey = $sy;
 		$this->connection = new MongoClient(getenv("MONGOHQ_URL"));
 		$this->collection = $this->connection->selectCollection('lifemmo', 'cells');
+		$this->rule = $r;
 	}
 	public function init(){
 		for($i = 0; $i < $this->sizex; $i++){
@@ -87,23 +98,18 @@ class LifeServer{
 				}*/
 				$thisdata = searchSubArray($data, "x", $i, "y", $j);
 				$thisdata = $thisdata["state"];
-				if($nsum < 2 && $thisdata == 1){
-					$changes[] = array("x" => $i,
-					"y" => $j,
-					"state" => 0);
-				}
-				else if(($nsum == 2 || $nsum == 3) && $thisdata == 1){
+				if(checkCondition($this->rule->s, $nsum) && $thisdata == 1){
 					continue;
 				}
-				else if($nsum > 3 && $thisdata == 1){
-					$changes[] = array("x" => $i,
-					"y" => $j,
-					"state" => 0);
-				}
-				else if($nsum == 3 && $thisdata == 0){
+				else if(checkCondition($this->rule->b, $nsum) && $thisdata == 0){
 					$changes[] = array("x" => $i,
 					"y" => $j,
 					"state" => 1);
+				}
+				else if($thisdata == 1){
+					$changes[] = array("x" => $i,
+					"y" => $j,
+					"state" => 0);
 				}
 			}
 		}
@@ -111,6 +117,15 @@ class LifeServer{
 		foreach($changes as $change){
 			$this->draw($change["x"], $change["y"], $change["state"]);
 		}
+	}
+	public function setRule($r){
+		if(gettype($r) == "object" && get_class($r) == "Rule")
+			$this->rule = $r;
+		else
+			throw new Exception('Not a object of type Rule.');
+	}
+	public function getRule(){
+		return $this->rule;
 	}
 }
 ?>
