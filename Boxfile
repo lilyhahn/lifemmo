@@ -1,6 +1,0 @@
-worker1: 
-  exec: "php server/serverd.php"
-  php_extensions: 
-    - mongo
-  type: php
-  php-version: 5.4.14

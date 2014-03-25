@@ -21,7 +21,7 @@ class LifeConsole extends LifeServer{
 				$this->collection->insert($cell);
 			}
 		}
-		$this->connection->selectDB('lifemmo')->createCollection("events");
+		$this->db->createCollection("events");
 		$this->connection->selectCollection('lifemmo', 'state')->insert(array("paused" => false));
 	}
 	public function help(){
