@@ -23,6 +23,7 @@ class LifeConsole extends LifeServer{
 		}
 		$this->db->createCollection("events");
 		$this->connection->selectCollection('lifemmo', 'state')->insert(array("paused" => false));
+		$this->connection->selectCollection('lifemmo', 'state')->insert(array("rule" => $this->rule));
 	}
 	public function help(){
 		echo "init(): writes empty cells into database.\n

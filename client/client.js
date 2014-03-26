@@ -1,7 +1,7 @@
 var canvas = null;
 var scale = 20;
 var cells = null;
-var drowsyUrl = "http://10.85.207.212:9292";
+var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
 	update();
 	var data = null;
@@ -66,6 +66,7 @@ function update(){
 	 		cells = data;
 	 		updateCells(data);
 	 		updateButtons();
+	 		updateRule();
 	 	},
 		error: function(){
 			console.log("error");
@@ -158,6 +159,32 @@ function updateButtons(){
 					$("#pause").val("Pause");
 				}
 			});
+		}
+	});
+}
+
+function updateRule(){
+	var selector = {"rule": {"$exists":true}};
+	$.ajax({
+		type: 'GET',
+		url: drowsyUrl + '/lifemmo/state',
+		data: selector,
+		success: function(data){
+			console.log(data);
+			var s = "";
+			$.each(data[1].rule.s, function(i, item){ //fix later
+				s += item;
+			});
+			if(!$("#ruleS").is(":focus")){
+				$("#ruleS").val(s);
+			}
+			var b = "";
+			$.each(data[1].rule.b, function(i, item){ //fix later
+				b += item;
+			});
+			if(!$("#ruleB").is(":focus")){
+				$("#ruleB").val(b);
+			}
 		}
 	});
 }
