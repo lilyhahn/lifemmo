@@ -1,10 +1,19 @@
 var canvas = null;
 var scale = 20;
 var cells = null;
-var drowsyUrl = "http://10.85.207.212:9292";
+var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
 	update();
-	var data = null;
+	$.ajax({
+		type: 'GET',
+	 	url: drowsyUrl + '/lifemmo/cells/',
+	 	success: function(data){
+	 		cells = data;
+	 	},
+		error: function(){
+			console.log("error");
+		},
+	});
 	canvas = new fabric.Canvas('maincanvas');
 	canvas.selection = false;
 	//console.log("test");
@@ -54,23 +63,18 @@ $(document).ready(function(){
 });
 
 function update(){
-	var selector = {"state": {"$exists":true}};
+	var match = {"state": {"$in": ["1", 1]}};
 	$.ajax({
 		type: 'GET',
-	 	//url: 'http://192.168.1.201:28017/lifemmo/cells/',
 	 	url: drowsyUrl + '/lifemmo/cells/',
-	 	//dataType: 'jsonp',
-	 	data: selector,
+	 	data: {selector: JSON.stringify(match)},
 	 	success: function(data){
-	 		//console.log(data);
-	 		cells = data;
 	 		updateCells(data);
 	 		updateButtons();
 	 	},
 		error: function(){
 			console.log("error");
 		},
-		//jsonp: 'jsonp'
 	});
 }
 
