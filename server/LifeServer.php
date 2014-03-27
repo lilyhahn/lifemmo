@@ -20,6 +20,7 @@ class LifeServer{
 		$this->sizey = $sy;
 		$this->connection = new MongoClient(getenv("MONGOHQ_URL"));
 		$this->collection = $this->connection->selectCollection('lifemmo', 'cells');
+		$this->db = $this->connection->selectDB('lifemmo');
 		$this->rule = $r;
 	}
 	public function init(){

@@ -15,7 +15,7 @@ $(document).ready(function(){
 					//console.log("target.top: " + e.target.top + " cell y: " + item.y);
 					//console.log("target.left: " + e.target.left + " cell x: " + item.x);
 					if(e.target.top == (item.y * scale) && e.target.left == (item.x * scale)){
-						var patch = {"state": 0};
+						var patch = {state: 0};
 						$.ajax(drowsyUrl + '/lifemmo/cells/' + item._id.$oid, {
 							type: 'patch',
 							data: patch,
@@ -37,7 +37,7 @@ $(document).ready(function(){
 					console.log("item.y: " + item.y * scale);*/
 					//if(item.x * scale - e.e.x < 10 && item.x * scale - e.e.x > 0 && item.y * scale - e.e.y < 10 && item.y * scale - e.e.y > 0){
 						//console.log(drowsyUrl + '/lifemmo/cells/' + item._id.$oid);
-						var patch = {"state": 1};
+						var patch = {state: 1};
 						$.ajax(drowsyUrl + '/lifemmo/cells/' + item._id.$oid, {
 							type: 'patch',
 							data: patch,
