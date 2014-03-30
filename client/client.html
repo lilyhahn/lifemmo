@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="shortcut icon" href="icon.png" type="image/png" />
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
 <script src="client.js"></script>
@@ -9,12 +10,14 @@
 <body>
 	<center>
 	<h1>Octogenarian</h1>
-	<div style="border: 2px solid; height: 600px; width: 600px">
-	<canvas id="maincanvas" width="600" height="600" style="border: 20px"></canvas>
+	<div id="field">
+	<canvas id="maincanvas"></canvas>
+	</div>
 	<br />
 	<input id="pause" type="button" onClick="pause()" value="Pause"/>
+	<a href="https://docs.google.com/document/d/11-gtJXY2YDnv4BLgpxKodlCeL57Mcgo5dEPNdXhTTaA/pub" target="_blank">
+		<input type="button" value="Explain" /></a>
 	<br />
 </center>
-</div>
 </body>
 </html>
