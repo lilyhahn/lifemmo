@@ -166,4 +166,4 @@ function updateButtons(){
 	});
 }
 
-setInterval(update, 250);
+setInterval(update, 500);

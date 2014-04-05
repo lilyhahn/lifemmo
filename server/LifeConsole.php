@@ -12,7 +12,7 @@ class LifeConsole extends LifeServer{
 			$this->events->pollEvents();
 			if(!$this->events->paused){
 				$this->generate();
-				usleep(100 * 1000);
+				usleep(500 * 1000);
 			}
 		}
 	}
