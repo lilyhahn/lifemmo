@@ -1,6 +1,7 @@
 #!/usr/bin/php
 <?php
 require('LifeConsole.php');
+#apd_set_pprof_trace(".");
 $rule = new Rule(array(2, 3), array(3));
 $serv = new LifeConsole(30, 30, $rule);
 #$serv->init();

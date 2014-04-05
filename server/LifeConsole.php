@@ -10,8 +10,10 @@ class LifeConsole extends LifeServer{
 	public function start(){
 		while(1){
 			$this->events->pollEvents();
-			if(!$this->events->paused)
+			if(!$this->events->paused){
 				$this->generate();
+				usleep(100 * 1000);
+			}
 		}
 	}
 	public function init(){

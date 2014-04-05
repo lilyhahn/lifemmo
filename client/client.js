@@ -1,7 +1,7 @@
 var canvas = null;
 var scale = 20;
 var cells = null;
-var drowsyUrl = "http://octogenarian.hopto.org:9292";
+var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
 	update();
 	$.ajax({
@@ -166,4 +166,4 @@ function updateButtons(){
 	});
 }
 
-setInterval(update, 1000);
+setInterval(update, 250);
