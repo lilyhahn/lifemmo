@@ -14,6 +14,9 @@ class LifeConsole extends LifeServer{
 				$this->generate();
 				usleep(500 * 1000);
 			}
+			else{
+				usleep(500 * 1000);
+			}
 		}
 	}
 	public function init(){
