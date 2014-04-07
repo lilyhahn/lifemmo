@@ -1,5 +1,5 @@
 var canvas = null;
-var scale = 20;
+var scale = 12;
 var cells = null;
 var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
