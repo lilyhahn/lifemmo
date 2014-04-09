@@ -1,5 +1,5 @@
 var canvas = null;
-var scale = 20;
+var scale = 12;
 var cells = null;
 var drowsyUrl = "http://localhost:9292";
 $(document).ready(function(){
@@ -168,29 +168,27 @@ function updateButtons(){
 }
 
 function updateRule(){
-	var selector = {"rule": {"$exists":true}};
 	$.ajax({
 		type: 'GET',
-		url: drowsyUrl + '/lifemmo/state',
-		data: selector,
+		url: drowsyUrl + '/lifemmo/state?selector=%7B"rule"%3A+%7B"%24exists"%3A+true%7D%7D',
 		success: function(data){
 			console.log(data);
 			var s = "";
-			$.each(data[1].rule.s, function(i, item){ //fix later
+			$.each(data[0].rule.s, function(i, item){
 				s += item;
 			});
-			if(!$("#ruleS").is(":focus")){
+			if(!$("#ruleS").is(":focus") && !$("#ruleB").is(":focus")){
 				$("#ruleS").val(s);
 			}
 			var b = "";
-			$.each(data[1].rule.b, function(i, item){ //fix later
+			$.each(data[0].rule.b, function(i, item){
 				b += item;
 			});
-			if(!$("#ruleB").is(":focus")){
+			if(!$("#ruleB").is(":focus") && !$("#ruleS").is(":focus")){
 				$("#ruleB").val(b);
 			}
 		}
 	});
 }
 
-setInterval(update, 1000);
+setInterval(update, 500);

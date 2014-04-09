@@ -9,10 +9,10 @@ Octogenarian -- The Game of Life MMO
 ### First time setup  
 `./server.php`  
 `init()`   
-`cd` to where Drowsy is installed  
-`rackup`  
 
 ### Running the server
+`cd` to where Drowsy is installed  
+`rackup`  
 `./server.php`  
 `start()`  
 

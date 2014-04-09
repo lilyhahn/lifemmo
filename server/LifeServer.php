@@ -8,6 +8,15 @@ function checkCondition($items, $condition){
 	}
 	return false;
 }
+function arrangeData($data){
+	$newdata = array();
+	foreach($data as $datum){
+		$x = $datum["x"];
+		$y = $datum["y"];
+		$newdata["$x,$y"] = (int)$datum["state"];
+	}
+	return $newdata;
+}
 class LifeServer{
 	protected $sizex;
 	protected $sizey;
@@ -43,52 +52,85 @@ class LifeServer{
 		return $this->collection->findOne(array("x" => $x, "y" => $y));
 	}
 	private function neighborhood_sum($data, $x, $y){
+		$ox = $x;
+		$oy = $y;
 		$nsum = 0;
-		if($x < $this->sizex){
-			$tmp = searchSubArray($data, "x", $x + 1, "y", $y);
-			if($tmp["state"] == 1)
+		if($x < $this->sizex - 1){
+			#$tmp = searchSubArray($data, "x", $x + 1, "y", $y);
+			#if($tmp["state"] == 1)
+			$x += 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
+		$x = $ox;
+		$y = $oy;
 		if($x > 0){
-			$tmp = searchSubArray($data, "x", $x - 1, "y", $y);
-			if($tmp["state"] == 1)
+			#$tmp = searchSubArray($data, "x", $x - 1, "y", $y);
+			#if($tmp["state"] == 1)
+			$x -= 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
-		if($y < $this->sizey){
-			$tmp = searchSubArray($data, "x", $x, "y", $y + 1);
-			if($tmp["state"] == 1)
+		$x = $ox;
+		$y = $oy;
+		if($y < $this->sizey - 1){
+			#$tmp = searchSubArray($data, "x", $x, "y", $y + 1);
+			#if($tmp["state"] == 1)
+			$y += 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
+		$x = $ox;
+		$y = $oy;
 		if($y > 0){
-			$tmp = searchSubArray($data, "x", $x, "y", $y - 1);
-			if($tmp["state"] == 1)
+			#$tmp = searchSubArray($data, "x", $x, "y", $y - 1);
+			#if($tmp["state"] == 1)
+			$y -= 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
-		if($x < $this->sizex && $y < $this->sizey){
-			$tmp = searchSubArray($data, "x", $x + 1, "y", $y + 1);
-			if($tmp["state"] == 1)
+		$x = $ox;
+		$y = $oy;
+		if($x < $this->sizex - 1 && $y < $this->sizey - 1){
+			#$tmp = searchSubArray($data, "x", $x + 1, "y", $y + 1);
+			#if($tmp["state"] == 1)
+			$x += 1;
+			$y += 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
+		$x = $ox;
+		$y = $oy;
 		if($x > 0 && $y > 0){
-			$tmp = searchSubArray($data, "x", $x - 1, "y", $y - 1);
-			if($tmp["state"] == 1)
+			$x -= 1;
+			$y -= 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
-		if($x < $this->sizex && $y > 0){
-			$tmp = searchSubArray($data, "x", $x + 1, "y", $y - 1);
-			if($tmp["state"] == 1)
+		$x = $ox;
+		$y = $oy;
+		if($x < $this->sizex - 1 && $y > 0){
+			$x += 1;
+			$y -= 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
-		if($x > 0 && $y < $this->sizey){
-			$tmp = searchSubArray($data, "x", $x - 1, "y", $y + 1);
-			if($tmp["state"] == 1)
+		$x = $ox;
+		$y = $oy;
+		if($x > 0 && $y < $this->sizey - 1){
+			$x -= 1;
+			$y += 1;
+			if($data["$x,$y"] == 1)
 				$nsum++;
 		}
+		$x = $ox;
+		$y = $oy;
 		return $nsum;
 	}
 	public function generate(){
 		$changes = array();
-		$data = iterator_to_array($this->collection->find());
+		#$olddata = iterator_to_array($this->collection->find());
+		$data = arrangeData(iterator_to_array($this->collection->find()));
 		//step one: find changes we need to make and put details in an array
 		for($i = 0; $i < $this->sizex; $i++){
 			for($j = 0; $j < $this->sizey; $j++){
@@ -97,8 +139,7 @@ class LifeServer{
 					echo "nsum: $nsum\n";
 					echo "thisdata: $thisdata\n";
 				}*/
-				$thisdata = searchSubArray($data, "x", $i, "y", $j);
-				$thisdata = $thisdata["state"];
+				$thisdata = $data["$i,$j"];
 				if(checkCondition($this->rule->s, $nsum) && $thisdata == 1){
 					continue;
 				}

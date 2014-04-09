@@ -1,0 +1,16 @@
+#field{
+	border: 2px solid;
+	height: 600px;
+	width: 600px;
+	background-color: #FFFFFF;
+}
+#maincanvas{
+	width: 600;
+	height: 600;
+}
+body{
+	background-color: #EDEDED;
+}
+h1{
+	font-family: sans-serif;
+}
