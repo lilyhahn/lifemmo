@@ -172,7 +172,7 @@ function updateRule(){
 		type: 'GET',
 		url: drowsyUrl + '/lifemmo/state?selector=%7B"rule"%3A+%7B"%24exists"%3A+true%7D%7D',
 		success: function(data){
-			console.log(data);
+			//console.log(data[0]);
 			var s = "";
 			$.each(data[0].rule.s, function(i, item){
 				s += item;
@@ -187,6 +187,20 @@ function updateRule(){
 			if(!$("#ruleB").is(":focus") && !$("#ruleS").is(":focus")){
 				$("#ruleB").val(b);
 			}
+		}
+	});
+}
+
+function changeRule(){
+	var newrule = {s: $("#ruleS").val().split(""), 
+	b: $("#ruleB").val().split("")};
+	var ins = {command: "changeRule", rule: newrule};
+	$.ajax({
+		type: 'POST',
+		url: drowsyUrl + '/lifemmo/events',
+		data: ins,
+		success: function(data){
+			update();
 		}
 	});
 }

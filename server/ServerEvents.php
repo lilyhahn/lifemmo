@@ -1,18 +1,19 @@
 <?php
 class ServerEvents{
 
-	private $collection;
+	private $server;
+	private $events;
 	private $stateCollection;
 
 	public $paused = false;
 
-	public function __construct($c, $sc){
-		$this->collection = $c;
-		$this->stateCollection = $sc;
+	public function __construct(LifeServer $s){
+		$this->server = $s;
+		$this->events = $this->server->connection->selectCollection('lifemmo', 'events');
 	}
 
 	public function pollEvents(){
-		$events = iterator_to_array($this->collection->find());
+		$events = iterator_to_array($this->events->find());
 		foreach($events as $event){
 			if($event["command"] == "pause"){
 				$this->paused = true;
@@ -33,6 +34,9 @@ class ServerEvents{
 					null,
 					null
 				);
+			}
+			if($event["command"] == "changeRule"){
+				$
 			}
 		}
 	}
