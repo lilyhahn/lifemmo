@@ -2,6 +2,32 @@
 require('LifeServer.php');
 require('ServerEvents.php');
 class LifeConsole extends LifeServer{
+	//oh god php why
+	private $__friends = array('ServerEvents');
+
+    public function __get($key)
+    {
+        $trace = debug_backtrace();
+        if(isset($trace[1]['class']) && in_array($trace[1]['class'], $this->__friends)) {
+            return $this->$key;
+        }
+
+        // normal __get() code here
+
+        trigger_error('Cannot access private property ' . __CLASS__ . '::$' . $key, E_USER_ERROR);
+    }
+
+    public function __set($key, $value)
+    {
+        $trace = debug_backtrace();
+        if(isset($trace[1]['class']) && in_array($trace[1]['class'], $this->__friends)) {
+            return $this->$key = $value;
+        }
+
+        // normal __set() code here
+
+        trigger_error('Cannot access private property ' . __CLASS__ . '::$' . $key, E_USER_ERROR);
+    }
 	//some user friendly functions on top of LifeServer
 	private $events;
 	public function quit(){
@@ -46,7 +72,7 @@ setRule(r): sets rule\n";
 					null,
 					null
 		);
-		$this->events = new ServerEvents($this->connection->selectCollection('lifemmo', 'events'), $this->connection->selectCollection('lifemmo', 'state'));
+		$this->events = new ServerEvents($this);
 	}
 }
 ?>

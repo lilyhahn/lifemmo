@@ -17,7 +17,7 @@ class ServerEvents{
 		foreach($events as $event){
 			if($event["command"] == "pause"){
 				$this->paused = true;
-				$this->collection->remove(array("_id" => $event["_id"]));
+				$this->events->remove(array("_id" => $event["_id"]));
 				$this->stateCollection->findAndModify(
 					array("paused" => false),
 					array('$set' => array("paused" => true)),
@@ -27,7 +27,7 @@ class ServerEvents{
 			}
 			if($event["command"] == "resume"){
 				$this->paused = false;
-				$this->collection->remove(array("_id" => $event["_id"]));
+				$this->events->remove(array("_id" => $event["_id"]));
 				$this->stateCollection->findAndModify(
 					array("paused" => true),
 					array('$set' => array("paused" => false)),
@@ -36,7 +36,8 @@ class ServerEvents{
 				);
 			}
 			if($event["command"] == "changeRule"){
-				$
+				var_dump($event["rule"]);
+				$this->events->remove(array("_id" => $event["_id"]));
 			}
 		}
 	}
