@@ -10,6 +10,7 @@ class ServerEvents{
 	public function __construct(LifeServer $s){
 		$this->server = $s;
 		$this->events = $this->server->connection->selectCollection('lifemmo', 'events');
+		$this->stateCollection = $this->server->connection->selectCollection('lifemmo', 'state');
 	}
 
 	public function pollEvents(){
@@ -36,7 +37,8 @@ class ServerEvents{
 				);
 			}
 			if($event["command"] == "changeRule"){
-				var_dump($event["rule"]);
+				$r = new Rule($event["rule"]["s"], $event["rule"]["b"]);
+				$this->server->setRule($r);
 				$this->events->remove(array("_id" => $event["_id"]));
 			}
 		}

@@ -45,6 +45,13 @@ class LifeConsole extends LifeServer{
 			}
 		}
 	}
+	public function setRule($r){
+		parent::setRule($r);
+		$this->connection->selectCollection('lifemmo', 'state')->findAndModify(
+			array("rule" => array('$exists' => true)),
+			array('$set' => array("rule" => $this->rule))
+		);
+	}
 	public function init(){
 		for($i = 0; $i < $this->sizex; $i++){
 			for($j = 0; $j < $this->sizey; $j++){
