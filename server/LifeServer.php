@@ -1,5 +1,4 @@
 <?php
-require('arraysearch.php');
 require('Rule.php');
 function checkCondition($items, $condition){
 	foreach($items as $item){
@@ -28,7 +27,7 @@ class LifeServer{
 		$this->sizex = $sx;
 		$this->sizey = $sy;
 		try{
-			$this->connection = new MongoClient(getenv("MONGOHQ_URL"));
+			$this->connection = new MongoClient(getenv("MONGODB_URL"));
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -45,6 +44,11 @@ class LifeServer{
 				$this->collection->insert($cell);
 			}
 		}
+	}
+	public function clear(){
+		$this->connection->selectCollection('lifemmo', 'cells')->drop();
+		$this->connection->selectCollection('lifemmo', 'state')->drop();
+		$this->connection->selectCollection('lifemmo', 'events')->drop();
 	}
 	public function draw($x, $y, $state){
 		$this->collection->findAndModify(
