@@ -2,6 +2,7 @@
 <head>
 <link rel="shortcut icon" href="icon.png" type="image/png" />
 <link rel="stylesheet" type="text/css" href="style.css">
+<?php include_once("analytics.php") ?>
 <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js"></script>
 <script src="client.js"></script>
