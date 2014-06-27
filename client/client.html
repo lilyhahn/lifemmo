@@ -13,20 +13,22 @@
 	<center>
 	<h1>Octogenarian</h1>
 	<div id="field">
-	<canvas id="maincanvas" width="600" height="600"></canvas>
+		<canvas id="maincanvas" width="1000" height="1000"></canvas>
 	</div>
+	</center>
 	<br />
-	<input id="pause" type="button" onClick="pause()" value="Pause"/>
-	<a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
-		<input type="button" value="Explain" /></a>
-	<br />
-	Rule:
-	<br />
-	 S: 
-	<input id="ruleS" />
-	 B: 
-	<input id="ruleB" />
-	<input type="button" value="Change" id="change" onClick="changeRule()" />
-</center>
+	<div class="footer" id="control">
+		<input id="pause" type="button" onClick="pause()" value="Pause"/>
+		<a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
+			<input type="button" value="Explain" /></a>
+		<br />
+		Rule:
+		<br />
+		 S: 
+		<input id="ruleS" />
+		 B: 
+		<input id="ruleB" />
+		<input type="button" value="Change" id="change" onClick="changeRule()" />
+	</div>
 </body>
 </html>

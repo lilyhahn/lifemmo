@@ -1,7 +1,11 @@
 var canvas = null;
-var scale = 12;
+var scale = 10;
 var cells = null;
 var drowsyUrl = "http://localhost:9292";
+var cursor = null;
+var lastMouseX = 0;
+var lastMouseY = 0;
+var cursor;
 function getHiddenProp(){
     var prefixes = ['webkit','moz','ms','o'];
     
@@ -25,6 +29,7 @@ function isHidden() {
 }
 // thanks to http://www.html5rocks.com/en/tutorials/pagevisibility/intro/ for these two functions
 $(document).ready(function(){
+	$("#field").css("margin-bottom", $("#control").height());
 	update();
 	$.ajax({
 		type: 'GET',
@@ -39,6 +44,21 @@ $(document).ready(function(){
 	canvas = new fabric.Canvas('maincanvas');
 	canvas.selection = false;
 	//console.log("test");
+	canvas.on('mouse:move', function(e){
+		canvas.remove(cursor);
+		lastMouseX = e.e.offsetX;
+		lastMouseY = e.e.offsetY;
+		canvas.remove(cursor);
+		cursor = new fabric.Rect({
+				left: e.e.offsetX - e.e.offsetX % scale,
+				top: e.e.offsetY - e.e.offsetY % scale,
+				fill: "rgb(0, 0, 0)",
+				width: scale,
+				height: scale
+			});
+		cursor.set("selectable", false);
+		canvas.add(cursor);
+	});
 	canvas.on('mouse:down', function(e){
 		console.log(e);
 			if(e.target != undefined){
@@ -47,6 +67,9 @@ $(document).ready(function(){
 					//console.log("target.left: " + e.target.left + " cell x: " + item.x);
 					if(e.target.top == (item.y * scale) && e.target.left == (item.x * scale)){
 						var patch = {state: 0};
+						if(e.target.fill = "rgb(0, 0, 0)"){
+							patch = {state: 1};
+						}
 						$.ajax(drowsyUrl + '/lifemmo/cells/' + item._id.$oid, {
 							type: 'patch',
 							data: patch,
@@ -104,7 +127,17 @@ function update(){
 }
 
 function updateCells(data){
+	canvas.remove(cursor);
 	canvas.clear();
+	cursor = new fabric.Rect({
+		left: lastMouseX - lastMouseX % scale,
+		top: lastMouseY - lastMouseY % scale,
+		fill: "rgb(0, 0, 0)",
+		width: scale,
+		height: scale
+	});
+	cursor.set("selectable", false);
+	canvas.add(cursor);
 	$.each(data, function(i, item){
 		if(item.state == 1){
 			var cell = new fabric.Rect({
@@ -136,6 +169,7 @@ function resume(){
 		 			data: ins,
 		 			success: function(data){
 		 				update();
+					//if(item.x * scale - e.e.x < 10 && item.x * scale - e.e.x > 0 && item.y * scale - e.e.y < 10 && ite
 		 				document.getElementById("pause").onclick = pause;
 		 			}
 		 		});
